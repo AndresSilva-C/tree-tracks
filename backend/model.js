@@ -1,4 +1,3 @@
-
 require('dotenv').config()
 
 const Pool = require('pg').Pool
@@ -10,12 +9,13 @@ const pool = new Pool({
 	port: process.env.PG_PORT,
 });
 
-// SAMPLES:
-//get all merchants in our database
-const getMerchants = async () => {
+/* DB OPERATIONS START */
+
+//get all tree info in our database
+async function getTrees() {
 	try {
 		return await new Promise(function (resolve, reject) {
-			pool.query("SELECT * FROM merchants", (error, results) => {
+			pool.query("SELECT taxon, common_name, map_link FROM trees", (error, results) => {
 				if (error) {
 					reject(error);
 				}
@@ -32,68 +32,6 @@ const getMerchants = async () => {
 	}
 };
 
-//create a new merchant record in the databsse
-const createMerchant = (body) => {
-	return new Promise(function (resolve, reject) {
-		const { name, email } = body;
-		pool.query(
-			"INSERT INTO merchants (name, email) VALUES ($1, $2) RETURNING *",
-			[name, email],
-			(error, results) => {
-				if (error) {
-					reject(error);
-				}
-				if (results && results.rows) {
-					resolve(
-						`A new merchant has been added: ${JSON.stringify(results.rows[0])}`
-					);
-				} else {
-					reject(new Error("No results found"));
-				}
-			}
-		);
-	});
-};
-
-//delete a merchant
-const deleteMerchant = (id) => {
-	return new Promise(function (resolve, reject) {
-		pool.query(
-			"DELETE FROM merchants WHERE id = $1",
-			[id],
-			(error, results) => {
-				if (error) {
-					reject(error);
-				}
-				resolve(`Merchant deleted with ID: ${id}`);
-			}
-		);
-	});
-};
-
-//update a merchant record
-const updateMerchant = (id, body) => {
-	return new Promise(function (resolve, reject) {
-		const { name, email } = body;
-		pool.query(
-			"UPDATE merchants SET name = $1, email = $2 WHERE id = $3 RETURNING *",
-			[name, email, id],
-			(error, results) => {
-				if (error) {
-					reject(error);
-				}
-				if (results && results.rows) {
-					resolve(`Merchant updated: ${JSON.stringify(results.rows[0])}`);
-				} else {
-					reject(new Error("No results found"));
-				}
-			}
-		);
-	});
-};
 module.exports = {
-	getMerchants,
-	createMerchant,
-	deleteMerchant,
-	updateMerchant
+	getTrees
 };

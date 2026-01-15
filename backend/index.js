@@ -19,3 +19,5 @@ app.use(function (req, res, next) {
 app.listen(port, () => {
 	console.log(`TreeTracks listening on port ${port}`);
 });
+const routes = require("./routes");
+app.use("/api/v1/routes/", routes);

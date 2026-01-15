@@ -7,10 +7,10 @@ function Footer() {
 		<div className="size-full overflow-hidden">
             <div className="absolute left-0 bottom-0 w-full h-1/6 bg-green-600 overflow-hidden">
                 <div className="text-lime-200 font-mono text-lg font-bold grid grid-cols-2 my-10 mx-50">
-                    <Link to='/about' class='link'>
+                    <Link to='/about' class='footer_link'>
                         <p> About </p>
                     </Link>
-                    <Link to='/references' class='link'>
+                    <Link to='/references' class='footer_link'>
                         <p> Data References </p>
                     </Link>
                 </div>

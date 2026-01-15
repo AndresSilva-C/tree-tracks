@@ -7,9 +7,20 @@
   text-align: center;
 }
 
-.link {
+.footer_link {
   color: oklch(93.8% 0.127 124.321)
 }
-.link:hover {
+.footer_link:hover, .listing_link:hover {
   color: green
+}
+
+.listing_link {
+  color: black;
+}
+
+.nav_link {
+  color: oklch(89.273% 0.17111 147.626)
+}
+.nav_link:hover {
+  color: oklch(88.194% 0.16207 147.814)
 }

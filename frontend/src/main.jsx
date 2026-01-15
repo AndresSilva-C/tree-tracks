@@ -7,6 +7,8 @@ import Login from './views/Login.jsx'
 import Browse from './views/Browse.jsx'
 import About from './views/About.jsx'
 import References from './views/References.jsx'
+import TreePage from './views/TreePage.jsx';
+import Search from './views/Search.jsx'
 
 createRoot(document.getElementById('root')).render(
 	<StrictMode>
@@ -17,6 +19,8 @@ createRoot(document.getElementById('root')).render(
 				<Route path="/browse" element={<Browse />} />
 				<Route path="/about" element={<About />} />
 				<Route path="/references" element={<References />} />
+				<Route path="/trees/:treeId" element={<TreePage />} />
+				<Route path="/search" element={<Search />} />
 			</Routes>
 		</BrowserRouter>
 	</StrictMode>,
