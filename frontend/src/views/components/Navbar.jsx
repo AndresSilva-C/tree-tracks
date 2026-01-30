@@ -3,9 +3,9 @@ import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuIt
 
 var navigation = [
   { name: 'Browse', href: '/browse', current: false },
-  { name: 'About', href: '/about', current: false },
-  { name: 'References', href: '/references', current: false },
   { name: 'Search', href: '/search', current: false },
+  { name: 'About', href: '/about', current: false },
+  { name: 'References', href: '/references', current: false }
 ]
 
 function classNames(...classes) {

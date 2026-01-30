@@ -154,7 +154,7 @@ function SearchBar() {
                         {' '}
                         {searchResults.map((result) => (
                         <li key={result.map_link.slice(-10, -4)}>
-                            <TreeListing tree_obj={result} iucn={true} />
+                            <TreeListing tree_obj={result} search={true} />
                         </li>
                         ))}{' '}
                     </ul>{' '}

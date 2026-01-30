@@ -1,6 +1,6 @@
 import { Link } from "react-router";
 
-function TreeListing({tree_obj, iucn}) {
+function TreeListing({tree_obj, search}) {
 	const route = tree_obj.map_link.slice(-10, -4);
 
     function toTitleCase(str) {
@@ -11,7 +11,7 @@ function TreeListing({tree_obj, iucn}) {
     }
 
 	// TODO: TEMPORARY if-stmt maybe
-	if (iucn) {
+	if (search) {
 		return (
 			<Link to={'/trees/'+route} className="listing_link"> 
 				<div className="w-full grid grid-cols-3 gap-8 font-serif text-start text-md mx-9 justify-center mb-5">
@@ -25,9 +25,10 @@ function TreeListing({tree_obj, iucn}) {
 	else {
 		return (
 			<Link to={'/trees/'+route} className="listing_link"> 
-				<div className="max-w-2/3 grid grid-cols-2 gap-20 font-serif text-start text-md m-auto justify-center mb-5">
+				<div className="max-w-4/5 grid grid-cols-3 gap-10 font-serif text-start text-md mx-9 justify-center mb-5">
 					<p> {toTitleCase(tree_obj.common_name)} </p>
 					<p> {tree_obj.taxon} </p>
+					<p className="pl-14"> {tree_obj.iucn} </p>
 				</div>
 			</Link>
 		);
