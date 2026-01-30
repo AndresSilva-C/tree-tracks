@@ -24,3 +24,18 @@
 .nav_link:hover {
   color: oklch(88.194% 0.16207 147.814)
 }
+
+.search_button {
+  border-radius: calc(infinity * 1px);
+}
+.search_button:hover {
+  border-radius: calc(infinity * 1px);
+  border-color: green;
+}
+
+.sort_button {
+  background-color: rgb(129, 219, 129);
+}
+.sort_button:hover {
+  border-color: #00a108;
+}

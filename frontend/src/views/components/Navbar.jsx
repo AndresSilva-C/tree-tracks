@@ -1,8 +1,8 @@
-// Credit to Tailwind for this component boiler plate code
+// Credit to Tailwind for most of this component code
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 
-const navigation = [
-  { name: 'Browse', href: '/browse', current: true },
+var navigation = [
+  { name: 'Browse', href: '/browse', current: false },
   { name: 'About', href: '/about', current: false },
   { name: 'References', href: '/references', current: false },
   { name: 'Search', href: '/search', current: false },
@@ -12,7 +12,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function Navbar() {
+export default function Navbar({cur_page}) {
   return (
     <Disclosure as="nav" className="bg-teal-700 w-full fixed left-0 top-0 z-20 h-1/10">
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -35,9 +35,9 @@ export default function Navbar() {
                   <a
                     key={item.name}
                     href={item.href}
-                    aria-current={item.current ? 'page' : undefined}
+                    aria-current={item.name==cur_page ? 'page' : undefined}
                     className={classNames(
-                      item.current ? 'bg-teal-800 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white',
+                      item.name==cur_page ? 'bg-teal-800 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white',
                       'rounded-md px-3 py-2 text-sm font-medium nav_link',
                     )}
                   >
@@ -102,9 +102,9 @@ export default function Navbar() {
               key={item.name}
               as="a"
               href={item.href}
-              aria-current={item.current ? 'page' : undefined}
+              aria-current={item.name==cur_page ? 'page' : undefined}
               className={classNames(
-                item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white',
+                item.name==cur_page ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white',
                 'block rounded-md px-3 py-2 text-base font-medium',
               )}
             >

@@ -1,6 +1,6 @@
 import { Link } from "react-router";
 
-function TreeListing({tree_obj}) {
+function TreeListing({tree_obj, iucn}) {
 	const route = tree_obj.map_link.slice(-10, -4);
 
     function toTitleCase(str) {
@@ -9,14 +9,28 @@ function TreeListing({tree_obj}) {
             text => text.charAt(0).toUpperCase() + text.substring(1).toLowerCase()
         );
     }
-	
-	return (
-		<Link to={'/trees/'+route} class="listing_link"> 
-			<div className="max-w-2/3 grid grid-cols-2 gap-20 font-serif text-start text-md m-auto justify-center mb-5">
-				<p className=""> {toTitleCase(tree_obj.common_name)} </p>
-                <p className=""> {tree_obj.taxon} </p>
-			</div>
-		</Link>
-	);
+
+	// TODO: TEMPORARY if-stmt maybe
+	if (iucn) {
+		return (
+			<Link to={'/trees/'+route} className="listing_link"> 
+				<div className="w-full grid grid-cols-3 gap-8 font-serif text-start text-md mx-9 justify-center mb-5">
+					<p> {toTitleCase(tree_obj.common_name)} </p>
+					<p> {tree_obj.taxon} </p>
+					<p className="pl-12"> {tree_obj.iucn} </p>
+				</div>
+			</Link>
+		);
+	}
+	else {
+		return (
+			<Link to={'/trees/'+route} className="listing_link"> 
+				<div className="max-w-2/3 grid grid-cols-2 gap-20 font-serif text-start text-md m-auto justify-center mb-5">
+					<p> {toTitleCase(tree_obj.common_name)} </p>
+					<p> {tree_obj.taxon} </p>
+				</div>
+			</Link>
+		);
+	}
 }
 export default TreeListing;

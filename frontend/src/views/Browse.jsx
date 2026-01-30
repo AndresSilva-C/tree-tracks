@@ -31,7 +31,7 @@ function Browse() {
 	
 	return (
 		<div className="absolute top-0 start-0 w-full h-full bg-green-50">
-			<Navbar />
+			<Navbar cur_page='Browse' />
 			<div className="justify-items-center mt-30 pl-35 pb-20 bg-green-50">
 				<div className="grid grid-cols-2 gap-34 font-serif text-md text-start mb-4 mr-32">
 					<b> Common Name </b>

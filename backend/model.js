@@ -15,7 +15,7 @@ const pool = new Pool({
 async function getTrees() {
 	try {
 		return await new Promise(function (resolve, reject) {
-			pool.query("SELECT taxon, common_name, map_link FROM trees", (error, results) => {
+			pool.query("SELECT taxon, common_name, map_link, iucn FROM trees", (error, results) => {
 				if (error) {
 					reject(error);
 				}
