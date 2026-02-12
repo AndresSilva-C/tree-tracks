@@ -11,7 +11,7 @@ const pool = new Pool({
 
 /* DB OPERATIONS START */
 
-//get all tree info in our database
+//get all tree listing info from our database
 async function getTrees() {
 	try {
 		return await new Promise(function (resolve, reject) {
@@ -32,6 +32,28 @@ async function getTrees() {
 	}
 };
 
+//get all info about a specific tree
+async function getTreeInfo(tree_id) {
+	try {
+		return await new Promise(function (resolve, reject) {
+			pool.query("SELECT * FROM trees WHERE position($1 in map_link) > 0", [tree_id], (error, results) => {
+				if (error) {
+					reject(error);
+				}
+				if (results && results.rows) {
+					resolve(results.rows);
+				} else {
+					reject(new Error("No results found"));
+				}
+			});
+		});
+	} catch (error_1) {
+		console.error(error_1);
+		throw new Error("Internal server error");
+	}
+};
+
 module.exports = {
-	getTrees
+	getTrees,
+	getTreeInfo
 };

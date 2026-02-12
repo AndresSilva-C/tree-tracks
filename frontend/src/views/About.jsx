@@ -41,7 +41,7 @@ function About() {
 							My own RESTful API
 						</li>
 						<li>
-							External API integration (for GBIF) (pending?)
+							External API integration: <a href="https://www.gbif.org/">GBIF</a> API for occurrence mapping
 						</li>
 					</ul>
 					<h3 className="font-semibold text-xl text-start text-black font-serif pt-10">

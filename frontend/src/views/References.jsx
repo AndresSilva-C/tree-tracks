@@ -12,7 +12,7 @@ function References() {
                 </h1>
 				<div className="text-start font-serif text-lg text-balance text-black ml-10">
 					<ul className="mt-8 list-inside">
-						Maps site with taxon and common names:
+						Source for taxons and common names:
 						<li>
 							Fryer, Janet L., comp. 2018. Tree species distribution maps from Little's "Atlas of United States trees"
 							series. In: Fire Effects Information System, [Online]. U.S. Department of Agriculture, Forest Service,
@@ -26,6 +26,11 @@ function References() {
 							Botanic Gardens Conservation International. Richmond, UK.
 							Available at https://tools.bgci.org/global_tree_search.php
 							Accessed on (12/20/2025).
+						</li>
+						<br></br>
+						Maps/occurrences API provider:
+						<li>
+							GBIF.org (2026), GBIF Home Page. Available from: https://www.gbif.org [7 February 2026].
 						</li>
 					</ul>
 					<Link to='/' style={{color: "rgba(45, 218, 137, 1)"}} className="absolute right-10 bottom-6">

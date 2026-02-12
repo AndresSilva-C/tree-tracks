@@ -26,6 +26,7 @@ yarn-error.log*
 
 # other
 US_tree_data_cleaned.csv
+US_trees_v2.csv
 citations_tree_tracks.txt
 to-do.txt
 /backend/index_example.js
