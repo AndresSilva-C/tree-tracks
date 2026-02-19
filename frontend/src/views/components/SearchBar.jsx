@@ -2,7 +2,7 @@
 import { useState, useEffect, useMemo } from 'react'
 import TreeListing from './TreeListing'
 
-function SearchBar() {
+function SearchBar({passNotification}) {
     const [searchTerm, setSearchTerm] = useState('');
     const [searchResults, setSearchResults] = useState([]);
     const [trees, setTrees] = useState([]);
@@ -154,7 +154,7 @@ function SearchBar() {
                         {' '}
                         {searchResults.map((result) => (
                         <li key={result.map_link.slice(-10, -4)}>
-                            <TreeListing tree_obj={result} search={true} />
+                            <TreeListing tree_obj={result} search={true} passNotification={passNotification} />
                         </li>
                         ))}{' '}
                     </ul>{' '}

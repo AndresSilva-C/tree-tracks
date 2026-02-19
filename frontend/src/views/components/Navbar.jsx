@@ -1,5 +1,7 @@
 // Credit to Tailwind for most of this component code
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
+import { Link } from "react-router";
+import { useCookies } from 'react-cookie';
 
 var navigation = [
   { name: 'Browse', href: '/browse', current: false },
@@ -13,6 +15,9 @@ function classNames(...classes) {
 }
 
 export default function Navbar({cur_page}) {
+  // eslint-disable-next-line no-unused-vars
+  const [cookies, setCookie, removeCookie] = useCookies([]);
+
   return (
     <Disclosure as="nav" className="bg-teal-700 w-full fixed left-0 top-0 z-20 h-1/10">
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -25,7 +30,7 @@ export default function Navbar({cur_page}) {
                 <img
                     alt="TreeTracks"
                     src="https://upload.wikimedia.org/wikipedia/commons/1/1d/Fir_Tree_%26_Road.svg?color=green&shade=500"
-                    className="h-9 w-auto"
+                    className="h-9 w-auto bg-green-100 rounded-md"
                 />
               </a>
             </div>
@@ -65,29 +70,30 @@ export default function Navbar({cur_page}) {
                 transition
                 className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg outline outline-black/5 transition data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in"
               >
-                <MenuItem>
+                {/*<MenuItem>
                   <a
                     href="/profile"
                     className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden listing_link"
                   >
                     Profile
                   </a>
-                </MenuItem>
+                </MenuItem>*/}
                 <MenuItem>
-                  <a
-                    href="/lists"
+                  <Link
+                    to="/favorites"
                     className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden listing_link"
                   >
-                    My Lists
-                  </a>
+                    Favorites List
+                  </Link>
                 </MenuItem>
                 <MenuItem>
-                  <a
-                    href="/login"
+                  <Link
+                    to="/login"
+                    onClick={() => {removeCookie('USER');}}
                     className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden listing_link"
                   >
-                    Sign Out
-                  </a>
+                    {cookies['USER'] ? 'Sign Out' : 'Log In'}
+                  </Link>
                 </MenuItem>
               </MenuItems>
             </Menu>

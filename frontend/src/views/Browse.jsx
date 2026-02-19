@@ -1,12 +1,17 @@
-import { Link } from "react-router";
 import { useEffect, useState } from 'react'
 import TreeListing from './components/TreeListing'
 import Navbar from './components/Navbar'
+import { useCookies } from 'react-cookie';
 
 function Browse() {
 	const [trees, setTrees] = useState(false);
 	const [sortMethod, setSortMethod] = useState(0);
     const [buttonState, setButtonState] = useState(0);
+	const [notification, setNotification] = useState('');
+	const [favorites, setFavorites] = useState([]);
+	const [isLoggedIn, setIsLoggedIn] = useState(false);
+	// eslint-disable-next-line no-unused-vars
+	const [cookies, setCookie] = useCookies([]);
 	const sortMethods = [sortCommonNameDesc, sortCommonNameAsc, sortTaxonDesc, sortTaxonAsc, sortIucnDesc, sortIucnAsc];
 
     function sortCommonNameDesc(a, b){
@@ -62,10 +67,11 @@ function Browse() {
 			return response.json();
 		})
 		.then(data => {
-			data.sort(sortMethods[sortMethod])
+			data.sort(sortMethods[sortMethod]);
 			var listings = data.map(tree => 
 				<li key={tree.map_link.slice(-10, -4)}>
-					<TreeListing tree_obj={tree} search={false}/>
+					<TreeListing tree_obj={tree} search={false} passNotification={passNotification} 
+					in_list={favorites.includes(tree.map_link.slice(-10, -4))} showButton={isLoggedIn} />
 				</li>
 			);
 			return <ul className="ml-72">{listings}</ul>
@@ -75,12 +81,48 @@ function Browse() {
 		});
 	}
 
+	function getUserFavorites() {
+		if(!cookies['USER']) {
+			return;
+		}
+		fetch(url + "/favorites", {
+				method: "POST",
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({username: cookies['USER']['username']})	
+			})
+		.then(response => {
+			return response.json();
+		})
+		.then(data => {
+			setIsLoggedIn(true);
+			setFavorites(data[0].favorites);
+		});
+	}
+
+	const passNotification = (message) => {
+		setNotification(message);
+	}
+
 	useEffect(() => {
 		getTrees();
+	}, [favorites, isLoggedIn]);
+
+	useEffect(() => {
+		getUserFavorites();
 	}, []);
+
+	// Timer to control notification messages
+	useEffect(() => {
+		const timer = setTimeout(() => {
+			setNotification('')
+		}, 5000);
+		return () => {
+			clearTimeout(timer);
+		}
+	}, [notification]);
 	
 	return (
-		<div className="absolute top-0 start-0 w-full h-full bg-green-50">
+		<div className="absolute top-0 start-0 w-full h-full bg-green-50 justify-items-center">
 			<Navbar cur_page='Browse' />
 			<div className="justify-items-center justify-center text-center mt-30 pb-20 bg-green-50">
 				<div className='font-serif text-sm text-center mb-3 justify-items-center'>
@@ -104,6 +146,9 @@ function Browse() {
 				</div>
 				{trees ? trees : 'There is no tree data available'}
 			</div>
+			{notification && <p className='bg-green-200 rounded-md text-black text-2xl fixed bottom-10 text-center p-3'>
+				 				{notification}
+				  			 </p>}
 		</div>
 	);
 }

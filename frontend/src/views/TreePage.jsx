@@ -1,12 +1,19 @@
 import { useParams } from "react-router";
 import { useState, useEffect } from 'react'
-import Navbar from "./components/Navbar";
-import DistributionMap from "./components/DistributionMap";
+import { useCookies } from 'react-cookie';
+import Navbar from './components/Navbar';
+import DistributionMap from './components/DistributionMap';
+import AddButton from './components/AddButton';
 
 function TreePage() {
 	const { treeId } = useParams();
 	const [treeData, setTreeData] = useState([]);
 	const [treeName, setTreeName] = useState('');
+	const [isLoggedIn, setIsLoggedIn] = useState(false);
+	const [inFavorites, setInFavorites] = useState();	 // is current tree already in favorites list?
+	const [notification, setNotification] = useState('');
+	// eslint-disable-next-line no-unused-vars
+	const [cookies, setCookie] = useCookies([]);
 	const iucn_map = {'? ':'Data Not Found', 'NE':'Not Evaluated', 'DD':'Data Deficient', 'LC':'Least Concern', 'NT':'Near Threatened',
 		 				 'VU': 'Vulnerable', 'EN':'Endangered', 'CR':'Critically Endangered', 'EW':'Extinct in the Wild', 'EX': 'Extinct'};
 
@@ -25,6 +32,25 @@ function TreePage() {
 		});
 	}
 
+	function getUserFavorites() {
+		if(!cookies['USER']) {
+			return;
+		}
+		fetch(url + "/favorites", {
+				method: "POST",
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({username: cookies['USER']['username']})	
+			})
+		.then(response => {
+			return response.json();
+		})
+		.then(data => {
+			console.log(data[0].favorites);
+			setIsLoggedIn(true);
+			setInFavorites(data[0].favorites.includes(treeId));
+		});
+	}
+
 	function toTitleCase(str) {
         return str.replace(
             /\w\S*/g,
@@ -32,14 +58,34 @@ function TreePage() {
         );
     }
 
+	const passNotification = (message) => {
+		setNotification(message);
+	}
+
 	useEffect(() => {
 		getTreeData();
 	}, []);
+
+	useEffect(() => {
+		getUserFavorites();
+	}, []);
+
+	// Timer to control notification messages
+	useEffect(() => {
+		const timer = setTimeout(() => {
+			setNotification('')
+		}, 5000);
+		return () => {
+			clearTimeout(timer);
+		}
+	}, [notification]);
 	
 	return (
 		<div className="absolute top-0 start-0 w-full h-full bg-green-50 overflow-hidden">
 			<Navbar />
-			<div className="mt-30">
+			<div className="mt-30 justify-items-center">
+				{isLoggedIn && <AddButton styling={'absolute top-30 right-20 w-12 h-12'} size={'large'}
+					passNotification={passNotification} tree_name={treeName} tree_id={treeId} in_list={inFavorites} /> }
 				<div className="font-serif font-xl text-center justify-items-center">
 					<h1> {treeName} </h1>
 					<h2 className="text-2xl mt-3"> {treeData.taxon} </h2>
@@ -66,6 +112,9 @@ function TreePage() {
 					<a href={`https://www.gbif.org/species/${treeData.taxonkey}`} target="_blank" rel="noopener noreferrer"> here </a>
 					{treeData.info_link != 'None' && <p>or <a href={treeData.info_link} target="_blank" rel="noopener noreferrer"> here</a></p> }
 				</div>
+				{notification && <p className='bg-green-200 rounded-md text-black text-2xl absolute bottom-20 text-center p-3'>
+				 				{notification}
+				  			 </p>}
 			</div>
 		</div>
 	);
