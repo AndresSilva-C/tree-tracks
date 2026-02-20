@@ -1,4 +1,4 @@
-import SearchBar from "./components/Searchbar";
+import SearchBar from "./components/SearchBar";
 import Navbar from "./components/Navbar";
 import { useState } from "react";
 
