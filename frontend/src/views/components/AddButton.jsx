@@ -3,7 +3,7 @@ import { useCookies } from 'react-cookie';
 import './Button.css'
 
 function AddButton({tree_name, tree_id, in_list, passNotification, styling, size}) {
-    const url = 'http://localhost:3001/api/v1/routes'
+    const url = 'http://localhost:3000/api/v1/routes'
     // eslint-disable-next-line no-unused-vars
     const [cookies, setCookie] = useCookies([]);
     const [inList, setInList] = useState(in_list);

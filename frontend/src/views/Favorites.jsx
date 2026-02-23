@@ -12,7 +12,7 @@ function Favorites() {
 	// eslint-disable-next-line no-unused-vars
 	const [cookies, setCookie] = useCookies([]);
 	
-	const url = 'http://localhost:3001/api/v1/routes'
+	const url = 'http://localhost:3000/api/v1/routes'
 
 	function getUserFavorites() {
 		if(!cookies['USER']) {

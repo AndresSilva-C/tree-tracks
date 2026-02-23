@@ -59,7 +59,7 @@ function Browse() {
         return 0;
     }
 
-	const url = 'http://localhost:3001/api/v1/routes'
+	const url = 'http://localhost:3000/api/v1/routes'
 	
 	function getTrees() {
 		fetch(url)

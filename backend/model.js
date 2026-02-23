@@ -1,5 +1,7 @@
 require('dotenv').config()
+// const { sql } = require('./db.js')	// secondary db connection method
 
+// For local DB connection
 const Pool = require('pg').Pool
 const pool = new Pool({
 	user: process.env.PG_USER,
