@@ -17,7 +17,7 @@ function TreePage() {
 	const iucn_map = {'? ':'Data Not Found', 'NE':'Not Evaluated', 'DD':'Data Deficient', 'LC':'Least Concern', 'NT':'Near Threatened',
 		 				 'VU': 'Vulnerable', 'EN':'Endangered', 'CR':'Critically Endangered', 'EW':'Extinct in the Wild', 'EX': 'Extinct'};
 
-	const url = 'http://localhost:3000/api/v1/routes'
+	const url = '/api/v1/routes'
 
 	function getTreeData() {
 		fetch(url + `/tree-info/${treeId}`)

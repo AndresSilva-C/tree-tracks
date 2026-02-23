@@ -59,7 +59,8 @@ function Browse() {
         return 0;
     }
 
-	const url = 'http://localhost:3000/api/v1/routes'
+	// const url = 'http://localhost:3000/api/v1/routes' local URL
+	const url = '/api/v1/routes' 	// remote server URL
 	
 	function getTrees() {
 		fetch(url)

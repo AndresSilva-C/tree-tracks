@@ -5,7 +5,7 @@ import { Link } from "react-router";
 import './components/Button.css'
 
 function Login() {
-	const url = 'http://localhost:3000/api/v1/routes'
+	const url = '/api/v1/routes'
 	const [errorMessage, setErrorMessage] = useState('');
 	const [successMessage, setSuccessMessage] = useState('');
 	const [redirect, setRedirect] = useState('');
